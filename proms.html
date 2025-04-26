@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BBC Proms 2025 Selection</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .prom { 
+      border: 1px solid #ccc; 
+      padding: 10px; 
+      margin: 5px 0; 
+      cursor: pointer; 
+      border-radius: 6px;
+      transition: background 0.3s; 
+    }
+    .prom:hover { background: #f0f8ff; }
+    .selected { background-color: #cce5ff; border-color: #0077cc; }
+    #submitBtn { 
+      margin-top: 20px; 
+      padding: 10px 20px; 
+      font-size: 16px; 
+      cursor: pointer;
+    }
+    @media (max-width: 600px) {
+      .prom { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Choose the BBC Proms you're interested in</h1>
+  <div id="promList"></div>
+  <button id="submitBtn">Submit Selections</button>
+
+  <script>
+    const proms = [
+      { date: '18 July', title: 'Prom 1: First Night of the Proms' },
+      { date: '19 July', title: 'Prom 2: The Great American Songbook and Beyond with Samara Joy' },
+      { date: '20 July', title: 'Prom 3: Vivaldi and Bach' },
+      { date: '20 July', title: 'Prom 4: Ravel\'s Concerto for the Left Hand' },
+      { date: '21 July', title: 'Prom 5: Mahler\'s Seventh' },
+      // (Add the full list here as in previous step)
+      { date: '13 September', title: 'Prom 73: Last Night of the Proms 2025' }
+    ];
+
+    const promList = document.getElementById('promList');
+
+    proms.forEach(prom => {
+      const div = document.createElement('div');
+      div.className = 'prom';
+      div.textContent = `${prom.date} - ${prom.title}`;
+      div.addEventListener('click', () => div.classList.toggle('selected'));
+      promList.appendChild(div);
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const selectedProms = [];
+      document.querySelectorAll('.prom.selected').forEach(div => {
+        selectedProms.push(div.textContent);
+      });
+
+      if (selectedProms.length === 0) {
+        alert('Please select at least one Prom.');
+        return;
+      }
+
+      const name = prompt('Please enter your name:');
+      if (!name) {
+        alert('Name is required.');
+        return;
+      }
+
+      const selectedText = selectedProms.join(', ');
+
+      // Build the form submission URL
+      const formBaseURL = 'https://docs.google.com/forms/d/e/1FAIpQLSd-XJozrp1wONtX_lOFv7vDppC4qgBvYvQuJjqqCa_Bb6izkw/viewform?usp=pp_url';
+      const nameEntry = 'entry.40972180';
+      const promsEntry = 'entry.1486131897';
+
+      const formURL = `${formBaseURL}&${nameEntry}=${encodeURIComponent(name)}&${promsEntry}=${encodeURIComponent(selectedText)}`;
+
+      window.open(formURL, '_blank');
+    });
+  </script>
+
+</body>
+</html>
