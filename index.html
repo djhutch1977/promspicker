@@ -147,7 +147,8 @@
 
       const formURL = `${formBaseURL}&${nameEntry}=${encodeURIComponent(name)}&${promsEntry}=${encodeURIComponent(selectedText)}`;
 
-      window.open(formURL, '_blank');
+      window.location.href = formURL;
+
     });
   </script>
 
