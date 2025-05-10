@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proms 2025 RSVP – Isle of Wight Symphony Orchestra</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proms 2025 RSVP – IWSO</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -59,7 +59,7 @@
 <body>
   <h1>Proms 2025 – IWSO RSVP</h1>
 
-  <img src="banner.png" alt="Proms banner" class="image-banner">
+  <img src="banner.png" alt="Proms banner" class="image-banner" />
 
   <div class="instructions">
     <p>Please enter your name and tell us your plan for each of the Proms below. You can choose:</p>
@@ -69,11 +69,11 @@
       <li><strong>🛒 I'm going but getting my own ticket</strong></li>
       <li><strong>❌ Not attending</strong></li>
     </ul>
-    <p>You can change your mind later. Everyone will be able to see what others have selected, so you can coordinate.</p>
+    <p>You can change your mind later. Just resubmit the form with the same name to update.</p>
   </div>
 
   <label for="name">Your Name:</label>
-  <input type="text" id="name" placeholder="e.g. Ginny Clarinet">
+  <input type="text" id="name" placeholder="e.g. Ginny Clarinet" />
 
   <form id="rsvpForm">
     <div id="promList"></div>
@@ -129,11 +129,12 @@
     ];
 
     const promList = document.getElementById("promList");
+
     proms.forEach(prom => {
       const label = document.createElement("label");
       label.textContent = prom;
       const select = document.createElement("select");
-      select.name = prom; // match the header exactly
+      select.name = prom;
       options.forEach(option => {
         const opt = document.createElement("option");
         opt.value = option;
@@ -147,58 +148,34 @@
 
     document.getElementById("rsvpForm").addEventListener("submit", function(e) {
       e.preventDefault();
+
       const name = document.getElementById("name").value.trim();
       if (!name) {
         alert("Please enter your name.");
         return;
       }
+
       const formData = { "Name": name };
       document.querySelectorAll("select").forEach(sel => {
         formData[sel.name] = sel.value;
       });
+
       fetch("https://script.google.com/macros/s/AKfycbxG2ik1cNkgMuI3-jNpBAufLltpSGRlRRHh6l8BVf-STyycK5yEbh8S4-D44YjE0gIqhQ/exec", {
         method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify(formData)
+      })
+      .then(response => {
+        alert("Thank you! Your responses have been recorded.");
+        console.log("Response received.");
+      })
+      .catch(error => {
+        console.error("Submission failed:", error);
+        alert("There was a problem submitting your response.");
       });
-      alert("Thank you! Your responses have been recorded.");
-      document.getElementById("rsvpForm").reset();
     });
   </script>
-<script>
-document.getElementById("rsvpForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value.trim();
-  if (!name) {
-    alert("Please enter your name.");
-    return;
-  }
-
-  const formData = { "Name": name };
-  document.querySelectorAll("select").forEach(sel => {
-    formData[sel.name] = sel.value;
-  });
-
-  fetch("https://script.google.com/macros/s/AKfycbxG2ik1cNkgMuI3-jNpBAufLltpSGRlRRHh6l8BVf-STyycK5yEbh8S4-D44YjE0gIqhQ/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(formData)
-  })
-  .then(() => {
-    alert("Thank you! Your responses have been recorded.");
-    // Don't reset the form if you want to preserve choices:
-    // document.getElementById("rsvpForm").reset();
-  })
-  .catch(error => {
-    console.error("Submission failed", error);
-    alert("There was a problem submitting your response.");
-  });
-});
-</script>
-
 </body>
 </html>
