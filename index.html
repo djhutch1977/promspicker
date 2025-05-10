@@ -73,7 +73,7 @@
   </div>
 
   <label for="name">Your Name:</label>
-  <input type="text" id="name" placeholder="e.g. Gareth Trumpetchops">
+  <input type="text" id="name" placeholder="e.g. Ginny Clarinet">
 
   <form id="rsvpForm">
     <div id="promList"></div>
@@ -133,7 +133,7 @@
       const label = document.createElement("label");
       label.textContent = prom;
       const select = document.createElement("select");
-      select.name = prom;
+      select.name = prom; // match the header exactly
       options.forEach(option => {
         const opt = document.createElement("option");
         opt.value = option;
