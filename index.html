@@ -138,9 +138,12 @@
 
     proms.forEach(prom => {
       const label = document.createElement("label");
+      const selectId = prom.replace(/[^a-zA-Z0-9]/g, "_");
+      label.setAttribute("for", selectId);
       label.textContent = prom;
       const select = document.createElement("select");
       select.name = prom;
+      select.id = selectId;
       options.forEach(option => {
         const opt = document.createElement("option");
         opt.value = option;
@@ -154,4 +157,3 @@
   </script>
 </body>
 </html>
-
