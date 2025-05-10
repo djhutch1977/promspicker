@@ -3,156 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BBC Proms 2025 Selection</title>
+  <title>Proms 2025 RSVP – Isle of Wight Symphony Orchestra</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .prom { 
-      border: 1px solid #ccc; 
-      padding: 10px; 
-      margin: 5px 0; 
-      cursor: pointer; 
-      border-radius: 6px;
-      transition: background 0.3s; 
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
     }
-    .prom:hover { background: #f0f8ff; }
-    .selected { background-color: #cce5ff; border-color: #0077cc; }
-    #submitBtn { 
-      margin-top: 20px; 
-      padding: 10px 20px; 
-      font-size: 16px; 
+    h1 {
+      text-align: center;
+      color: #003366;
+    }
+    .instructions {
+      background: #f5faff;
+      padding: 15px;
+      border-left: 4px solid #0077cc;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    .image-banner {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 25px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
     }
-    @media (max-width: 600px) {
-      .prom { font-size: 14px; }
+    button:hover {
+      background-color: #005fa3;
     }
   </style>
 </head>
 <body>
+  <h1>Proms 2025 – IWSO RSVP</h1>
 
-  <h1>Choose the BBC Prom(s) you're interested in - we'll use this information to create the longlist...</h1>
-  <p>Choose all the ones that you might be vaguely interested in (no commitment at this stage) - we can then generate the list for voting / commiting to from this initial sift</p>
-  <p>If you need more info on any of the proms click <a href="https://www.bbc.co.uk/events/rb5v4f/by/date/2025" target="_blank">here</a></p>
-  <div id="promList"></div>
-  <button id="submitBtn">Submit Selections</button>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Royal_Albert_Hall_and_Albert_Memorial_-_geograph.org.uk_-_5935512.jpg/1280px-Royal_Albert_Hall_and_Albert_Memorial_-_geograph.org.uk_-_5935512.jpg" alt="Proms banner" class="image-banner">
+
+  <div class="instructions">
+    <p>Please enter your name and tell us your plan for each of the Proms below. You can choose:</p>
+    <ul>
+      <li><strong>🎫 Ask James to book</strong></li>
+      <li><strong>🚶 I'll queue for a Prommers ticket</strong></li>
+      <li><strong>🛒 I'm going but getting my own ticket</strong></li>
+      <li><strong>❌ Not attending</strong></li>
+    </ul>
+    <p>You can change your mind later. Everyone will be able to see what others have selected, so you can coordinate.</p>
+  </div>
+
+  <label for="name">Your Name:</label>
+  <input type="text" id="name" placeholder="e.g. Ginny Clarinet">
+
+  <form id="rsvpForm">
+    <div id="promList"></div>
+    <button type="submit">Submit RSVP</button>
+  </form>
 
   <script>
     const proms = [
-  { date: '18 July', title: 'Prom 1: First Night of the Proms' },
-  { date: '19 July', title: 'Prom 2: The Great American Songbook and Beyond with Samara Joy' },
-  { date: '20 July', title: 'Prom 3: Vivaldi and Bach' },
-  { date: '20 July', title: 'Prom 4: Ravel\'s Concerto for the Left Hand' },
-  { date: '21 July', title: 'Prom 5: Mahler\'s Seventh' },
-  { date: '22 July', title: 'Prom 6: Berlioz’s Symphonie fantastique' },
-  { date: '23 July', title: 'Prom 7: French Night with the Orchestre National de France' },
-  { date: '23 July', title: 'Prom 8: Boulez and Berio: 20th-Century Giants' },
-  { date: '24 July', title: 'Prom 9: Mendelssohn’s Violin Concerto' },
-  { date: '25 July', title: 'Prom 10: Beethoven’s Fifth' },
-  { date: '26 July', title: 'Prom 11: The Traitors (Afternoon Performance)' },
-  { date: '26 July', title: 'Prom 12: The Traitors (Evening Performance)' },
-  { date: '27 July', title: 'Prom 13: Mozart and Bruckner' },
-  { date: '28 July', title: 'Prom 14: Beethoven and Birtwistle' },
-  { date: '29 July', title: 'Prom 15: Arooj Aftab and Ibrahim Maalouf' },
-  { date: '30 July', title: 'Prom 16: Rachmaninov\'s Second Piano Concerto' },
-  { date: '31 July', title: 'Prom 17: Rachmaninov and Copland' },
-  { date: '31 July', title: 'Prom 18: Arvo Pärt at 90' },
-  { date: '1 August', title: 'Prom 19: Yunchan Lim plays Rachmaninov' },
-  { date: '2 August', title: 'Prom 20: Viennese Whirl' },
-  { date: '2 August', title: 'Prom 21: Mahler\'s \'Resurrection\' Symphony' },
-  { date: '3 August', title: 'Prom 22: Soul Revolution' },
-  { date: '4 August', title: 'Prom 23: Mahler and Boulez' },
-  { date: '5 August', title: 'Prom 24: Great British Classics' },
-  { date: '6 August', title: 'Prom 25: Beethoven and Bartók from Budapest' },
-  { date: '7 August', title: 'Prom 26: Dvořák’s \'New World\' Symphony' },
-  { date: '8 August', title: 'Prom 27: Rachmaninov’s \'Paganini\' Variations' },
-  { date: '8 August', title: 'Prom 28: From Dark Till Dawn' },
-  { date: '9 August', title: 'Prom 29: The Planets and Star Wars' },
-  { date: '10 August', title: 'Prom 30: Relaxed Prom: The Planets' },
-  { date: '10 August', title: 'Prom 31: Edward Gardner Conducts the LPO' },
-  { date: '11 August', title: 'Prom 32: Mahler\'s Third' },
-  { date: '12 August', title: 'Prom 33: Anoushka Shankar: \'Chapters\'' },
-  { date: '12 August', title: 'Prom 34: The Cavemen' },
-  { date: '13 August', title: 'Prom 35: Boléro and The Rite of Spring' },
-  { date: '14 August', title: 'Prom 36: Joe Hisaishi and Steve Reich' },
-  { date: '15 August', title: 'Prom 37: Benjamin Grosvenor Plays Ravel' },
-  { date: '16 August', title: 'Prom 38: Shostakovich’s Fifth by Heart' },
-  { date: '17 August', title: 'Prom 39: Shostakovich’s Fifth by Heart' },
-  { date: '17 August', title: 'Prom 40: Le Concert Spirituel' },
-  { date: '18 August', title: 'Prom 41: Elder Conducts \'A Mass of Life\'' },
-  { date: '19 August', title: 'Prom 42: Pappano Conducts Puccini and Strauss' },
-  { date: '20 August', title: 'Prom 43: Bruce Liu Plays Tchaikovsky' },
-  { date: '21 August', title: 'Prom 44: Beethoven\'s Ninth' },
-  { date: '22 August', title: 'Prom 45: Symphony of Sorrowful Songs' },
-  { date: '23 August', title: 'Prom 46: András Schiff Plays Bach' },
-  { date: '23 August', title: 'Prom 47: Danish National Vocal Ensemble' },
-  { date: '23 August', title: 'Prom 48: Mäkelä Conducts Mahler’s Fifth' },
-  { date: '24 August', title: 'Prom 49: Mäkelä Conducts Mozart, Prokofiev & Bartók' },
-  { date: '25 August', title: 'Prom 50: CBeebies Prom: A Magical Bedtime Story (Morning)' },
-  { date: '25 August', title: 'Prom 51: CBeebies Prom: A Magical Bedtime Story (Afternoon)' },
-  { date: '26 August', title: 'Prom 52: Sibelius\'s Second' },
-  { date: '27 August', title: 'Prom 53: The Marriage of Figaro from Glyndebourne' },
-  { date: '28 August', title: 'Prom 54: Saint-Saëns’s \'Organ\' Symphony' },
-  { date: '29 August', title: 'Prom 55: Khatia Buniatishvili Plays Tchaikovsky' },
-  { date: '30 August', title: 'Prom 56: Rattle Conducts Folk Songs and Dances' },
-  { date: '30 August', title: 'Prom 57: Handel’s \'Alexander’s Feast\'' },
-  { date: '31 August', title: 'Prom 58: Pekka Kuusisto and Katarina Barruk' },
-  { date: '1 September', title: 'Prom 59: Shostakovich’s \'Lady Macbeth\'' },
-  { date: '2 September', title: 'Prom 60: Adès Conducts the BBC SO' },
-  { date: '3 September', title: 'Prom 61: St. Vincent' },
-  { date: '4 September', title: 'Prom 62: Classic Thriller Soundtracks' },
-  { date: '5 September', title: 'Prom 63: Rattle Conducts Chineke!' },
-  { date: '6 September', title: 'Prom 64: Golda Schultz Sings Gershwin and Bernstein' },
-  { date: '7 September', title: 'Prom 65: Vaughan Williams’s \'A London Symphony\'' },
-  { date: '7 September', title: 'Prom 66: Grieg’s Piano Concerto' },
-  { date: '8 September', title: 'Prom 67: Vienna Philharmonic Plays Bruckner’s Ninth' },
-  { date: '9 September', title: 'Prom 68: Vienna Philharmonic Plays Mozart and Tchaikovsky' },
-  { date: '9 September', title: 'Prom 69: Avi Avital: Between Worlds' },
-  { date: '10 September', title: 'Prom 70: Rachmaninov’s Second Symphony' },
-  { date: '11 September', title: 'Prom 71: Brahms’s Second Symphony' },
-  { date: '12 September', title: 'Prom 72: John Wilson Conducts Bernstein and Ravel' },
-  { date: '13 September', title: 'Prom 73: Last Night of the Proms 2025' }
-];
+      "20 July – Prom 4: Ravel's Concerto for the Left Hand (2 votes)",
+      "21 July – Prom 5: Mahler's Seventh (2 votes)",
+      "27 July – Prom 13: Mozart and Bruckner (2 votes)",
+      "29 July – Prom 15: Arooj Aftab and Ibrahim Maalouf (1 vote)",
+      "30 July – Prom 16: Rachmaninov's Second Piano Concerto (3 votes)",
+      "31 July – Prom 17: Rachmaninov and Copland (6 votes)",
+      "31 July – Prom 18: Arvo Pärt at 90 (3 votes)",
+      "2 August – Prom 21: Mahler's 'Resurrection' Symphony (4 votes)",
+      "4 August – Prom 23: Mahler and Boulez (1 vote)",
+      "5 August – Prom 24: Great British Classics (1 vote)",
+      "7 August – Prom 26: Dvořák’s 'New World' Symphony (4 votes)",
+      "8 August – Prom 27: Rachmaninov’s 'Paganini' Variations (1 vote)",
+      "8 August – Prom 28: From Dark Till Dawn (2 votes)",
+      "9 August – Prom 29: The Planets and Star Wars (3 votes)",
+      "10 August – Prom 30: Relaxed Prom: The Planets (1 vote)",
+      "12 August – Prom 33: Anoushka Shankar: 'Chapters' (1 vote)",
+      "12 August – Prom 34: The Cavemen (1 vote)",
+      "13 August – Prom 35: Boléro and The Rite of Spring (2 votes)",
+      "14 August – Prom 36: Joe Hisaishi and Steve Reich (2 votes)",
+      "15 August – Prom 37: Benjamin Grosvenor Plays Ravel (1 vote)",
+      "16 August – Prom 38: Shostakovich’s Fifth by Heart (9 votes)",
+      "17 August – Prom 39: Shostakovich’s Fifth by Heart (8 votes)",
+      "23 August – Prom 46: András Schiff Plays Bach (2 votes)",
+      "23 August – Prom 48: Mäkelä Conducts Mahler’s Fifth (3 votes)",
+      "28 August – Prom 49: Mäkelä Conducts Mozart, Prokofiev & Bartók (4 votes)",
+      "26 August – Prom 52: Sibelius's Second (3 votes)",
+      "28 August – Prom 54: Saint-Saëns’s 'Organ' Symphony (4 votes)",
+      "29 August – Prom 55: Khatia Buniatishvili Plays Tchaikovsky (1 vote)",
+      "30 August – Prom 56: Rattle Conducts Folk Songs and Dances (2 votes)",
+      "31 August – Prom 58: Pekka Kuusisto and Katarina Barruk (1 vote)",
+      "4 September – Prom 62: Classic Thriller Soundtracks (1 vote)",
+      "5 September – Prom 63: Rattle Conducts Chineke! (6 votes)",
+      "6 September – Prom 64: Golda Schultz Sings Gershwin and Bernstein (2 votes)",
+      "7 September – Prom 65: Vaughan Williams’s 'A London Symphony' (4 votes)",
+      "8 September – Prom 67: Vienna Philharmonic Plays Bruckner’s Ninth (1 vote)",
+      "10 September – Prom 70: Rachmaninov’s Second Symphony (1 vote)",
+      "12 September – Prom 72: John Wilson Conducts Bernstein and Ravel (3 votes)"
+    ];
 
+    const options = [
+      "🎫 Ask James to book",
+      "🚶 Prommers ticket",
+      "🛒 Getting my own ticket",
+      "❌ Not attending"
+    ];
 
-    const promList = document.getElementById('promList');
-
+    const promList = document.getElementById("promList");
     proms.forEach(prom => {
-      const div = document.createElement('div');
-      div.className = 'prom';
-      div.textContent = `${prom.date} - ${prom.title}`;
-      div.addEventListener('click', () => div.classList.toggle('selected'));
-      promList.appendChild(div);
+      const label = document.createElement("label");
+      label.textContent = prom;
+      const select = document.createElement("select");
+      select.name = prom;
+      options.forEach(option => {
+        const opt = document.createElement("option");
+        opt.value = option;
+        opt.text = option;
+        select.appendChild(opt);
+      });
+      promList.appendChild(label);
+      promList.appendChild(select);
     });
 
-    document.getElementById('submitBtn').addEventListener('click', () => {
-      const selectedProms = [];
-      document.querySelectorAll('.prom.selected').forEach(div => {
-        selectedProms.push(div.textContent);
-      });
-
-      if (selectedProms.length === 0) {
-        alert('Please select at least one Prom.');
-        return;
-      }
-
-      const name = prompt('Please enter your name:');
+    document.getElementById("rsvpForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
       if (!name) {
-        alert('Name is required.');
+        alert("Please enter your name.");
         return;
       }
-
-      const selectedText = selectedProms.join(', ');
-
-      // Build the form submission URL
-      const formBaseURL = 'https://docs.google.com/forms/d/e/1FAIpQLSd-XJozrp1wONtX_lOFv7vDppC4qgBvYvQuJjqqCa_Bb6izkw/viewform?usp=pp_url';
-      const nameEntry = 'entry.40972180';
-      const promsEntry = 'entry.1486131897';
-
-      const formURL = `${formBaseURL}&${nameEntry}=${encodeURIComponent(name)}&${promsEntry}=${encodeURIComponent(selectedText)}`;
-
-      window.location.href = formURL;
-
+      const formData = { "Name": name };
+      document.querySelectorAll("select").forEach(sel => {
+        formData[sel.name] = sel.value;
+      });
+      fetch("https://script.google.com/macros/s/AKfycbxG2ik1cNkgMuI3-jNpBAufLltpSGRlRRHh6l8BVf-STyycK5yEbh8S4-D44YjE0gIqhQ/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      alert("Thank you! Your responses have been recorded.");
+      document.getElementById("rsvpForm").reset();
     });
   </script>
-
 </body>
 </html>
