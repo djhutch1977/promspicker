@@ -166,5 +166,39 @@
       document.getElementById("rsvpForm").reset();
     });
   </script>
+<script>
+document.getElementById("rsvpForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  if (!name) {
+    alert("Please enter your name.");
+    return;
+  }
+
+  const formData = { "Name": name };
+  document.querySelectorAll("select").forEach(sel => {
+    formData[sel.name] = sel.value;
+  });
+
+  fetch("https://script.google.com/macros/s/AKfycbxG2ik1cNkgMuI3-jNpBAufLltpSGRlRRHh6l8BVf-STyycK5yEbh8S4-D44YjE0gIqhQ/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(() => {
+    alert("Thank you! Your responses have been recorded.");
+    // Don't reset the form if you want to preserve choices:
+    // document.getElementById("rsvpForm").reset();
+  })
+  .catch(error => {
+    console.error("Submission failed", error);
+    alert("There was a problem submitting your response.");
+  });
+});
+</script>
+
 </body>
 </html>
