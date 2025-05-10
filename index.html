@@ -24,6 +24,8 @@
     }
     .image-banner {
       width: 100%;
+      max-height: 250px;
+      object-fit: cover;
       border-radius: 12px;
       margin-bottom: 20px;
     }
@@ -120,10 +122,10 @@
     ];
 
     const options = [
-      "❌ Not attending"
       "🎫 Ask James to book",
       "🚶 Prommers ticket",
       "🛒 Getting my own ticket",
+      "❌ Not attending"
     ];
 
     const promList = document.getElementById("promList");
@@ -136,6 +138,7 @@
         const opt = document.createElement("option");
         opt.value = option;
         opt.text = option;
+        if (option === "❌ Not attending") opt.selected = true;
         select.appendChild(opt);
       });
       promList.appendChild(label);
