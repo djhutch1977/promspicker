@@ -160,21 +160,28 @@
         formData[sel.name] = sel.value;
       });
 
-      fetch("https://script.google.com/macros/s/AKfycbxG2ik1cNkgMuI3-jNpBAufLltpSGRlRRHh6l8BVf-STyycK5yEbh8S4-D44YjE0gIqhQ/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      })
-      .then(response => {
-        alert("Thank you! Your responses have been recorded.");
-        console.log("Response received.");
-      })
-      .catch(error => {
-        console.error("Submission failed:", error);
-        alert("There was a problem submitting your response.");
-      });
+fetch("https://script.google.com/macros/s/AKfycbxG2ik1cNkgMuI3-jNpBAufLltpSGRlRRHh6l8BVf-STyycK5yEbh8S4-D44YjE0gIqhQ/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(formData)
+})
+.then(async response => {
+  const text = await response.text();
+  console.log("Status:", response.status);
+  console.log("Returned:", text);
+
+  if (response.ok) {
+    alert("✅ Submitted successfully: " + text);
+  } else {
+    alert("❌ Server responded with error: " + text);
+  }
+})
+.catch(error => {
+  console.error("❌ Network error:", error);
+  alert("❌ Fetch failed: " + error.message);
+});
     });
   </script>
 </body>
